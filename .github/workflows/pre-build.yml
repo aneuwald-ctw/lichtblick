@@ -31,29 +31,27 @@ jobs:
 
       - name: Build prod files
         run: |
-          yarn run desktop:build:dev
+          yarn run desktop:build:prod
 
       - name: Build Windows version
         run: yarn run package:win
 
-      - name: Build Linux version
-        run: yarn run package:linux
+      #- name: Build Linux version
+      #  run: yarn run package:linux
 
       - name: Build macOS version
         run: yarn run package:darwin
 
-      - name: Upload artifacts to GitHub
+      - name: Upload artifacts to GitHub (MacOS)
         uses: actions/upload-artifact@v4
         with:
-          name: lichtblick-build-${{ env.version }}
-          path: |
-            dist/lichtblick-${{ env.version }}-linux-amd64.deb
-            dist/lichtblick-${{ env.version }}-linux-x64.tar.gz
-            dist/lichtblick-${{ env.version }}-linux-arm64.deb
-            dist/lichtblick-${{ env.version }}-linux-arm64.tar.gz
-            dist/lichtblick-${{ env.version }}-mac-universal.dmg
-            dist/lichtblick-${{ env.version }}-win.exe
-            dist/latest-linux.yml
-            dist/latest-mac.yml
-            dist/latest.yml
-          retention-days: 7
+          name: lichtblick-${{ env.version }}-mac-universal.dmg
+          path: dist/lichtblick-${{ env.version }}-mac-universal.dmg
+          retention-days: 1
+          
+      - name: Upload artifacts to GitHub (Win)
+        uses: actions/upload-artifact@v4
+        with:
+          name: lichtblick-${{ env.version }}-win.exe
+          path: dist/lichtblick-${{ env.version }}-win.exe
+          retention-days: 1
