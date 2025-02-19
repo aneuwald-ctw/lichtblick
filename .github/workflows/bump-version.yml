@@ -3,7 +3,10 @@ name: Auto Bump Version
 on:
   push:
     branches:
-      - main  # Trigger on push to main branch
+      - main # Trigger on push to main branch
+
+permissions:
+  actions: write
 
 jobs:
   bump:
@@ -18,7 +21,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '14'
+          node-version: "14"
 
       - run: corepack enable
 
@@ -60,7 +63,7 @@ jobs:
         run: |
           git push origin main
 
-      - name: Trigger Release Workflow
+      - name: Trigger pre-build workflow
         run: |
           curl -X POST -H "Accept: application/vnd.github+json" \
                -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
