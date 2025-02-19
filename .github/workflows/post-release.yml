@@ -2,6 +2,7 @@ name: Post Release
 
 # run after releases are published
 on:
+  workflow_release:
   release:
     types: [released]
 
